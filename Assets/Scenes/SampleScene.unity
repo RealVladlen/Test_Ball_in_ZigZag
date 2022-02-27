@@ -253,6 +253,7 @@ MonoBehaviour:
   _startPannel: {fileID: 1796096383}
   _player: {fileID: 311303800}
   _generator: {fileID: 311303800}
+  _lowPoind: -10
 --- !u!114 &311303807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d599cc1dc48cd429fe29e98b1e86d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 311303800}
+  playerTransform: {fileID: 311303801}
 --- !u!1 &1071300455
 GameObject:
   m_ObjectHideFlags: 0

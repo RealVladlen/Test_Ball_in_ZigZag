@@ -6,19 +6,26 @@ public class PathGenerator : MonoBehaviour
     public Cube firstPlatform;
     public Cube cubePrefabs;
 
+    private MeshRenderer _firstPlatformMeshRenderer;
+    private Rigidbody _firstPlatformRigidbody;
+
     private List<Cube> _spawnedCube = new List<Cube>();
 
     void Start()
     {
         SpawnedCube();
+
+        _firstPlatformMeshRenderer = firstPlatform.GetComponent<MeshRenderer>();
+        _firstPlatformRigidbody = firstPlatform.GetComponent<Rigidbody>();
+
     }
     private void SpawnedCube()
     {
         firstPlatform = Instantiate(firstPlatform, new Vector3(0,0,0), Quaternion.identity);
 
-        firstPlatform.GetComponent<MeshRenderer>().enabled = true;
+        _firstPlatformMeshRenderer.enabled = true;
 
-        firstPlatform.GetComponent<Rigidbody>().isKinematic = true;
+        _firstPlatformRigidbody.isKinematic = true;
 
         _spawnedCube.Add(firstPlatform);
 

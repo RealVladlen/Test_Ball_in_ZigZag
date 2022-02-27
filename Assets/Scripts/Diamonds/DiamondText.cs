@@ -5,24 +5,39 @@ public class DiamondText : MonoBehaviour
 {
     private int _totalDiamonds;
 
+    private Text _totalDiamondsText;
+
     void Start()
     {
         ResetText();
 
         GlobalEventManager.DiamondPickUp += PickUpDiamond;
         GlobalEventManager.GameOver += ResetText;
+
+        _totalDiamondsText = GetComponent<Text>();
     }
 
     private void ResetText()
     {
         _totalDiamonds = 0;
-        GetComponent<Text>().text = _totalDiamonds.ToString();
+        _totalDiamondsText.text = _totalDiamonds.ToString();
     }
 
     private void PickUpDiamond()
     {
         _totalDiamonds++;
         GlobalEventManager.SpeedUp();
-        GetComponent<Text>().text = _totalDiamonds.ToString();
+        _totalDiamondsText.text = _totalDiamonds.ToString();
+    }
+
+    private void Unsubscribe()
+    {
+        GlobalEventManager.DiamondPickUp -= PickUpDiamond;
+        GlobalEventManager.GameOver -= ResetText;
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
     }
 }

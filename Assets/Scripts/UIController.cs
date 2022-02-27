@@ -3,29 +3,44 @@ using UnityEngine;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject _startPannel;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private Transform _player;
     [SerializeField] private GameObject _generator;
+
+    [SerializeField] private float _lowPoind = -10f;
+
+    private PathGenerator _pathGenerator;
 
     private void Start()
     {
-        GameOver();
+        StartPosition();
+
+        _pathGenerator = _generator.GetComponent<PathGenerator>();
 
         _startPannel.SetActive(true);
     }
     void Update()
     {
-        if (transform.position.y <= -10)
+        if (transform.position.y <= _lowPoind)
         {
-            _generator.GetComponent<PathGenerator>().RestartSpawnedCube();
+            _pathGenerator.RestartSpawnedCube();
 
             GlobalEventManager.GameOver();
 
             GameOver();
         }
     }
+
+    private void StartPosition()
+    {
+        _player.position = new Vector3(0, 1f, 0);
+
+        Time.timeScale = 0;
+
+        _startPannel.SetActive(true);
+    }
     public void GameOver()
     {
-        _player.transform.position = new Vector3(0, 1f, 0);
+        _player.position = new Vector3(0, 1f, 0);
 
         Time.timeScale = 0;
 
@@ -41,12 +56,10 @@ public class UIController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Diamond")
+        if (TryGetComponent(out Diamond diamond))
         {
             GlobalEventManager.DiamondPickUp();
-
-            other.GetComponent<Diamond>().Unsubscribe();
-
+            diamond.Unsubscribe();
             Destroy(other.gameObject);
         }
     }

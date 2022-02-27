@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
+    public Transform playerTransform;
 
     private float offsetX = -2;
     private float offsetY = 7;
@@ -10,7 +10,7 @@ public class FollowPlayer : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = new Vector3(player.transform.position.x + offsetX, offsetY, player.transform.position.z + offsetZ);
+        transform.position = new Vector3(playerTransform.transform.position.x + offsetX, offsetY, playerTransform.transform.position.z + offsetZ);
 
     }
 }

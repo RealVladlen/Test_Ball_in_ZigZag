@@ -16,9 +16,15 @@ public class Diamond : MonoBehaviour
     {
         if (gameObject != null)
         {
-            Destroy(gameObject);
-
             Unsubscribe();
+            Destroy(gameObject);
+            
         }
     }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
+    }
+
 }

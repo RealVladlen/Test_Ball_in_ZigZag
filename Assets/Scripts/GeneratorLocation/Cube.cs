@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
@@ -8,27 +7,35 @@ public class Cube : MonoBehaviour
     public Transform bottomBeginSpawnPoint;
     public Transform leftBeginSpawnPoint;
 
-    private GameObject _player;
+    private PathGenerator _player;
+    private DiamondGenerate _diamondGenerate;
+
+    private Rigidbody _rigidbody;
+
+    [SerializeField] private float _lowPoint = -7.5f;
+
+    private void Start()
+    {
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        _diamondGenerate = gameObject.GetComponentInChildren<DiamondGenerate>();
+    }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (TryGetComponent(out PathGenerator player))
         {
-            _player = other.gameObject;
+            _player = player;
 
-            if (gameObject.tag == "Cube")
-            {
-                gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            }
+            _rigidbody.isKinematic = false;
         }
     }
     private void Update()
     {
-        if (gameObject.transform.position.y < -7.5f)
+        if (gameObject.transform.position.y < _lowPoint)
         {
-            _player.GetComponent<PathGenerator>().MovementCube();
-            gameObject.GetComponentInChildren<DiamondGenerate>().GenerateDiamond();
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            _player?.MovementCube();
+            _diamondGenerate.GenerateDiamond();
+            _rigidbody.isKinematic = true;
         }
     }
 }
