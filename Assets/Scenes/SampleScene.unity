@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPannel: {fileID: 1796096383}
-  _player: {fileID: 311303800}
+  _player: {fileID: 311303801}
   _generator: {fileID: 311303800}
   _lowPoind: -10
 --- !u!114 &311303807

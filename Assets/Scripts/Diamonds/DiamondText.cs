@@ -9,18 +9,18 @@ public class DiamondText : MonoBehaviour
 
     void Start()
     {
+        _totalDiamondsText = gameObject.GetComponent<Text>();
         ResetText();
 
         GlobalEventManager.DiamondPickUp += PickUpDiamond;
         GlobalEventManager.GameOver += ResetText;
 
-        _totalDiamondsText = GetComponent<Text>();
     }
 
     private void ResetText()
     {
         _totalDiamonds = 0;
-        _totalDiamondsText.text = _totalDiamonds.ToString();
+        GetComponent<Text>().text = _totalDiamonds.ToString();
     }
 
     private void PickUpDiamond()
@@ -35,7 +35,7 @@ public class DiamondText : MonoBehaviour
         GlobalEventManager.DiamondPickUp -= PickUpDiamond;
         GlobalEventManager.GameOver -= ResetText;
     }
-
+    
     private void OnDestroy()
     {
         Unsubscribe();

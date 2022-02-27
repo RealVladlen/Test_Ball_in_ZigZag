@@ -21,10 +21,9 @@ public class Diamond : MonoBehaviour
             
         }
     }
-
+    
     private void OnDestroy()
     {
         Unsubscribe();
     }
-
 }

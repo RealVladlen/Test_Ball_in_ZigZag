@@ -10,7 +10,7 @@ public class DiamondGenerate : MonoBehaviour
     }
     public void GenerateDiamond()
     {
-        int random = UnityEngine.Random.Range(0, 10);
+        int random = Random.Range(0, 10);
 
         if (random == 5)
         {

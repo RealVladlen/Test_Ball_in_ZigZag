@@ -8,13 +8,9 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private float _lowPoind = -10f;
 
-    private PathGenerator _pathGenerator;
-
     private void Start()
     {
         StartPosition();
-
-        _pathGenerator = _generator.GetComponent<PathGenerator>();
 
         _startPannel.SetActive(true);
     }
@@ -22,7 +18,7 @@ public class UIController : MonoBehaviour
     {
         if (transform.position.y <= _lowPoind)
         {
-            _pathGenerator.RestartSpawnedCube();
+            _generator.GetComponent<PathGenerator>().RestartSpawnedCube();
 
             GlobalEventManager.GameOver();
 
@@ -56,10 +52,10 @@ public class UIController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (TryGetComponent(out Diamond diamond))
+        if (other.tag == "Diamond")
         {
             GlobalEventManager.DiamondPickUp();
-            diamond.Unsubscribe();
+            other.GetComponent<Diamond>().Unsubscribe();
             Destroy(other.gameObject);
         }
     }
